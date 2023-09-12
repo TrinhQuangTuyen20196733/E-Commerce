@@ -31,8 +31,8 @@ public class Shop {
     private String avatarUrl;
 
     @OneToOne
-    @MapsId // Sử dụng khóa chính của User làm khóa chính của Shop
-    @JoinColumn(name = "owner")
+    @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
     @Column(name = "created_date")

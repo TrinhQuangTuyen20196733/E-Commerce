@@ -14,9 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 public class CartItem extends  BaseEntity{
 
-    @ManyToOne
-    @JoinColumn(name = "product_detail_id" )
-    private ProductDetail productDetailList;
+//    @ManyToOne
+//    @JoinColumn(name = "product_detail_id" )
+//    private ProductDetail productDetailList;
 
     private int amount;
 

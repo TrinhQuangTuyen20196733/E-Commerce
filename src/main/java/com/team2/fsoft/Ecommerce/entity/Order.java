@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name="orders")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
 
-    private int Status = OrderStatus.APPROVE_WAITING;
+    private int status = OrderStatus.APPROVE_WAITING;
 
     @Column(name = "receive_time")
     private LocalDate receiveTime;

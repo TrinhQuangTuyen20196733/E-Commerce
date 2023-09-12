@@ -13,8 +13,8 @@ public class Wallet {
     private long id;
     private int money;
     @OneToOne
-    @MapsId // Sử dụng khóa chính của User làm khóa chính của Shop
-    @JoinColumn(name = "user_id")
+    @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
     public void addMoney(Integer money) {
