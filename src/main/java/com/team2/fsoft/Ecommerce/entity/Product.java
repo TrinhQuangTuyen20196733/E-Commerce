@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(indexes = {
+        @Index(name = "product_name_index",columnList = "name")
+})
 public class Product extends  BaseEntity {
     @ManyToOne()
     @JoinColumn(name = "shop_id")

@@ -1,6 +1,9 @@
 package com.team2.fsoft.Ecommerce.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
@@ -8,7 +11,7 @@ import lombok.Data;
 @Data
 public class Role {
     @Id
-    private  String code;
-
-    private  String name;
+    private String code;
+    @NotBlank
+    private String name;
 }
