@@ -31,6 +31,7 @@ public class User extends  BaseEntity {
 
     private String address;
 
+
     @Min(5)
     @Max(100)
     private int age;

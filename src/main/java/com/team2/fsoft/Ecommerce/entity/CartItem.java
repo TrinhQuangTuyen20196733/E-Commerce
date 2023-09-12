@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartItem extends  BaseEntity{
+public class CartItem extends BaseEntity {
 
     @Min(0)
     private int amount;
