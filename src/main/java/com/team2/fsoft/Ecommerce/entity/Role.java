@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  String code;
 
     private  String name;
