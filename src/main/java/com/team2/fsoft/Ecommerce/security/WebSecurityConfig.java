@@ -58,13 +58,11 @@ public class WebSecurityConfig {
                                 .hasAnyAuthority("SHOPPER", "ADMIN")
                                 .requestMatchers("/shipper/**")
                                 .hasAnyAuthority("SHIPPER", "ADMIN")
-                                .requestMatchers("/auth/**", "/api/**", "/aaa", "/dang-ki")
+                                .requestMatchers("/auth/**", "/api/**", "/aaa", "/register/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
-
-
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(Customizer.withDefaults());
 
