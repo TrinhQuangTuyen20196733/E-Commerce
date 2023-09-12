@@ -35,6 +35,23 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler({EmailNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleEmailNotFoundException(EmailNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setCode(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setDescription(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+
+    }
+    @ExceptionHandler({InvalidRefreshToken.class})
+    public ResponseEntity<ErrorResponse> handleInvalidRefreshToken(InvalidRefreshToken ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setCode(HttpStatus.UNAUTHORIZED.value());
+        errorResponse.setDescription(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+
+    }
+
     @ExceptionHandler({Exception.class})
     public ResponseEntity<ErrorResponse> Exception(Exception e) {
         ErrorResponse errorResponse = new ErrorResponse();

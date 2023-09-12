@@ -1,6 +1,7 @@
 package com.team2.fsoft.Ecommerce.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CartItem extends  BaseEntity{
 
-//    @ManyToOne
-//    @JoinColumn(name = "product_detail_id" )
-//    private ProductDetail productDetailList;
-
+    @Min(0)
     private int amount;
 
     @ManyToOne

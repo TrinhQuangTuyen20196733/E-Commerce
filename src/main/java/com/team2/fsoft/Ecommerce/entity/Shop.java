@@ -1,6 +1,7 @@
 package com.team2.fsoft.Ecommerce.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(indexes = {
+        @Index(name = "shop_name_index",columnList = "name")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +23,7 @@ public class Shop {
     @Id
     private  long id;
 
+    @NotBlank
     private String name;
 
     private String address;
