@@ -1,7 +1,8 @@
-package com.team2.fsoft.Ecommerce.controller;
+package com.team2.fsoft.Ecommerce.controller.user;
 
 
 import com.team2.fsoft.Ecommerce.dto.UserDTO;
+import com.team2.fsoft.Ecommerce.dto.request.RegisterReq;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
 import com.team2.fsoft.Ecommerce.service.UserService;
 import jakarta.validation.Valid;
@@ -16,18 +17,16 @@ public class UserController {
     }
 
     @PostMapping("/updateUser")
-    public MessagesResponse updateUserInfo(@RequestParam String email, @RequestBody @Valid UserDTO userDTO) {
+    public MessagesResponse updateUserInfo( @RequestBody @Valid RegisterReq registerReq) {
         MessagesResponse messagesResponse = new MessagesResponse();
-        userService.updateUserInformation(email, userDTO);
-        messagesResponse.message = "Success";
+        userService.updateUserInformation(registerReq);
         return messagesResponse;
     }
 
     @DeleteMapping("/deleteUser")
-    public MessagesResponse deleteUser(@RequestParam @Valid String email) {
+    public MessagesResponse deleteUser(@RequestParam long id) {
         MessagesResponse messagesResponse = new MessagesResponse();
-        userService.deleteUser(email);
-        messagesResponse.message = "Success";
+        userService.deleteUser(id);
         return messagesResponse;
     }
 

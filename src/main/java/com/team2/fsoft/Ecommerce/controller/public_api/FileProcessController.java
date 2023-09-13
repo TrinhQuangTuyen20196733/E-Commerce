@@ -2,7 +2,6 @@ package com.team2.fsoft.Ecommerce.controller.public_api;
 
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
 import com.team2.fsoft.Ecommerce.service.UploadService;
-import io.minio.messages.Bucket;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class UploadFileController {
+public class FileProcessController {
     final UploadService uploadService;
 
-    public UploadFileController(UploadService uploadService) {
+    public FileProcessController(UploadService uploadService) {
         this.uploadService = uploadService;
     }
 
