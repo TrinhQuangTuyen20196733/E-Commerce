@@ -1,5 +1,6 @@
 package com.team2.fsoft.Ecommerce.controller.public_api;
 
+import com.team2.fsoft.Ecommerce.constant.ExceptionMessage;
 import com.team2.fsoft.Ecommerce.dto.request.ConfirmOTP;
 import com.team2.fsoft.Ecommerce.dto.request.RegisterReq;
 import com.team2.fsoft.Ecommerce.dto.request.ResetPasswordRequest;
@@ -10,11 +11,9 @@ import com.team2.fsoft.Ecommerce.service.impl.EmailService;
 import com.team2.fsoft.Ecommerce.service.impl.OTPService;
 import com.team2.fsoft.Ecommerce.service.impl.PasswordResetService;
 import com.team2.fsoft.Ecommerce.utils.MyCache;
-import com.team2.fsoft.Ecommerce.utils.TextMessage;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -79,7 +78,7 @@ public class RegisterController {
                     }
                     catch (Exception e ) {
                         ms.code=HttpStatus.INTERNAL_SERVER_ERROR.value();
-                        ms.message = TextMessage.CannotRegisterAccount;
+                        ms.message = ExceptionMessage.CannotRegisterAccount;
                     }
                 } else {
                     ms.code=HttpStatus.UNAUTHORIZED.value();
