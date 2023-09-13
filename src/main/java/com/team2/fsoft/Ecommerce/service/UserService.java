@@ -10,9 +10,9 @@ public interface UserService {
 
     void changePassword(String email, String oldPassword, String newPassword);
 
-    void updateUserInformation(String email, UserDTO userDTO);
+    void updateUserInformation(RegisterReq registerReq);
 
-    void deleteUser(String email);
+    void deleteUser(long id);
 
     User findByEmail(String email);
 
