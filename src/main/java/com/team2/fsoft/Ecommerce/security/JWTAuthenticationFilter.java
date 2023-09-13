@@ -54,10 +54,9 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     }
 
     public String getJwtFromRequest(HttpServletRequest request) {
-        // Authorization of header chứa các thông tin về xác thực và phân quyền người dùng
+
         String bearerToken = request.getHeader("Authorization");
-        //Kiểm tra xem header Authorization có chứa thông tin jwt không. Theo chuẩn JWT thì Authorization Header chứa tên loại token và giá trị jwt
-        // Đây là chuẩn JWT => authorization header = Bearer [JWTvalue]
+
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }

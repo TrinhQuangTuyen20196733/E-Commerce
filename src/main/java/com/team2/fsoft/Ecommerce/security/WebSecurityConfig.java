@@ -20,8 +20,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig {
-    @Autowired
-    UserDetailService userDetailService;
+    final  UserDetailService userDetailService;
+
+    public WebSecurityConfig(UserDetailService userDetailService) {
+        this.userDetailService = userDetailService;
+    }
 
     @Bean
     public JWTAuthenticationFilter jwtAuthenticationFilter() {
