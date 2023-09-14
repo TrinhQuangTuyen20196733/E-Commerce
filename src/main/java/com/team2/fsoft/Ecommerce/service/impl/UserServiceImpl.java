@@ -103,7 +103,17 @@ public class UserServiceImpl implements UserService {
             return userResMapper.toDTOList(results);
         }
 
-        @Override
+    @Override
+    public User findById(long Id) {
+        var userOptional = userRepository.findById(Id);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        }
+        ;
+        return null;
+    }
+
+    @Override
         public void changePassword (String email, String oldPassword, String newPassword){
             Optional<User> userOptional = userRepository.findByEmail(email);
             if (userOptional.isPresent()) {

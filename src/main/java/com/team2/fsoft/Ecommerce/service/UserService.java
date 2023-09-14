@@ -22,4 +22,6 @@ public interface UserService {
 
 
     List<UserRes> getLists(ApiParameter apiParameter);
+
+    User findById(long Id);
 }
