@@ -5,10 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ApiParameter {
     public  int page =1 ;
-    public  int limit;
+    public  int limit =10;
     public  Filter filter;
 }

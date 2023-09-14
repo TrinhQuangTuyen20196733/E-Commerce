@@ -13,13 +13,16 @@ import java.util.List;
 @Entity
 @Table(name = "shopping_cart")
 public class ShoppingCart extends BaseEntity {
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Transient
+    private   int count=0;
 
-    @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY)
-    List<CartItem> cartItemList;
 
-    private int count = 0;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "shoppingCart")
+    private List<CartItem> cartItemList;
+
 }

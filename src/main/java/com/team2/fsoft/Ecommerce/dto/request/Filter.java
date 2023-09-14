@@ -10,10 +10,17 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Filter {
-    public Date created;
-    public  String author;
-    public  boolean ascending = false;
-    public  String categoryCode;
-    public String orderBy;
-}
+    public String text;
 
+    public Date created;
+
+    public  String author;
+
+
+    public  String categoryCode;
+
+    public  boolean ascending = false;
+
+    public String orderBy;
+
+}
