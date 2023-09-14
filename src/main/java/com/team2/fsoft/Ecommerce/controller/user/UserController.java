@@ -3,6 +3,7 @@ package com.team2.fsoft.Ecommerce.controller.user;
 
 import com.team2.fsoft.Ecommerce.dto.UserDTO;
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
+import com.team2.fsoft.Ecommerce.dto.request.ChangePasswordRequest;
 import com.team2.fsoft.Ecommerce.dto.request.RegisterReq;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
 import com.team2.fsoft.Ecommerce.dto.response.UserRes;
@@ -35,11 +36,8 @@ public class UserController {
     }
 
     @PostMapping("/changePassword")
-    public MessagesResponse changePassword(@RequestParam String email, @RequestParam String oldPassword, @RequestParam String newPassword) {
-        MessagesResponse messagesResponse = new MessagesResponse();
-        userService.changePassword(email, oldPassword, newPassword);
-        messagesResponse.message = "Success";
-        return messagesResponse;
+    public MessagesResponse changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+        return userService.changePassword(changePasswordRequest);
     }
     @PostMapping("/api/search")
     public List<UserRes> GetLists(@RequestBody ApiParameter apiParameter){

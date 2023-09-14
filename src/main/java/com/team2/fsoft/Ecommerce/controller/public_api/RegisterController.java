@@ -51,7 +51,6 @@ public class RegisterController {
         } catch (Exception e) {
             ms.code = HttpStatus.NOT_ACCEPTABLE.value();
             ms.message = e.getMessage();
-
         }
         return ms;
     }
