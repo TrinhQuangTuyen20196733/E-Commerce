@@ -2,11 +2,15 @@ package com.team2.fsoft.Ecommerce.controller.user;
 
 
 import com.team2.fsoft.Ecommerce.dto.UserDTO;
+import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
 import com.team2.fsoft.Ecommerce.dto.request.RegisterReq;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
+import com.team2.fsoft.Ecommerce.dto.response.UserRes;
 import com.team2.fsoft.Ecommerce.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -36,5 +40,9 @@ public class UserController {
         userService.changePassword(email, oldPassword, newPassword);
         messagesResponse.message = "Success";
         return messagesResponse;
+    }
+    @PostMapping("/api/search")
+    public List<UserRes> GetLists(@RequestBody ApiParameter apiParameter){
+        return  userService.getLists(apiParameter);
     }
 }

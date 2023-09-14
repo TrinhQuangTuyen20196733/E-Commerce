@@ -61,7 +61,7 @@ public class WebSecurityConfig {
                                 .hasAnyAuthority("SHOPPER", "ADMIN")
                                 .requestMatchers("/shipper/**")
                                 .hasAnyAuthority("SHIPPER", "ADMIN")
-                                .requestMatchers("/auth/**", "/api/**", "/aaa", "/register/**")
+                                .requestMatchers("/auth/**", "/api/**", "/swagger-ui/**", "/register/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()

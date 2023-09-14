@@ -208,3 +208,47 @@
 2023-09-14T00:59:36.918+07:00  INFO 1308 --- [http-nio-8080-exec-1] c.t.f.E.a.AnnotationDrivenEventListener  : Download file 1.jpgsucessfully
 2023-09-14T01:00:28.561+07:00  INFO 1308 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-09-14T01:00:28.568+07:00  INFO 1308 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-09-14T10:45:06.878+07:00  INFO 23400 --- [main] c.t.f.Ecommerce.EcommerceApplication     : Starting EcommerceApplication using Java 17.0.8 with PID 23400 (C:\Users\HP\Desktop\E-Commerce\Ecommerce\target\classes started by HP in C:\Users\HP\Desktop\E-Commerce\Ecommerce)
+2023-09-14T10:45:06.882+07:00  INFO 23400 --- [main] c.t.f.Ecommerce.EcommerceApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-09-14T10:45:08.792+07:00  INFO 23400 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-09-14T10:45:08.792+07:00  INFO 23400 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.12]
+2023-09-14T10:45:08.878+07:00  INFO 23400 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-09-14T10:45:09.086+07:00  INFO 23400 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-14T10:45:09.160+07:00  INFO 23400 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.7.Final
+2023-09-14T10:45:09.163+07:00  INFO 23400 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-09-14T10:45:09.352+07:00  INFO 23400 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-14T10:45:09.566+07:00  INFO 23400 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-09-14T10:45:09.924+07:00  INFO 23400 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@653e7b
+2023-09-14T10:45:09.926+07:00  INFO 23400 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-09-14T10:45:10.323+07:00  INFO 23400 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-14T10:45:11.125+07:00  INFO 23400 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-14T10:45:12.015+07:00  WARN 23400 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-14T10:45:13.701+07:00  INFO 23400 --- [main] c.t.f.Ecommerce.EcommerceApplication     : Started EcommerceApplication in 7.512 seconds (process running for 9.128)
+2023-09-14T10:46:54.998+07:00  INFO 23400 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-09-14T10:47:07.563+07:00  INFO 23400 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-09-14T10:47:07.570+07:00  INFO 23400 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-09-14T10:47:42.655+07:00  INFO 32272 --- [main] c.t.f.Ecommerce.EcommerceApplication     : Starting EcommerceApplication using Java 17.0.8 with PID 32272 (C:\Users\HP\Desktop\E-Commerce\Ecommerce\target\classes started by HP in C:\Users\HP\Desktop\E-Commerce\Ecommerce)
+2023-09-14T10:47:42.658+07:00  INFO 32272 --- [main] c.t.f.Ecommerce.EcommerceApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-09-14T10:47:44.130+07:00  INFO 32272 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-09-14T10:47:44.130+07:00  INFO 32272 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.12]
+2023-09-14T10:47:44.209+07:00  INFO 32272 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-09-14T10:47:44.403+07:00  INFO 32272 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-14T10:47:44.456+07:00  INFO 32272 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.7.Final
+2023-09-14T10:47:44.459+07:00  INFO 32272 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-09-14T10:47:44.566+07:00  INFO 32272 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-14T10:47:44.693+07:00  INFO 32272 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-09-14T10:47:44.920+07:00  INFO 32272 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4e51eda7
+2023-09-14T10:47:44.922+07:00  INFO 32272 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-09-14T10:47:45.237+07:00  INFO 32272 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-14T10:47:45.969+07:00  INFO 32272 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-14T10:47:46.777+07:00  WARN 32272 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-14T10:47:48.335+07:00  INFO 32272 --- [main] c.t.f.Ecommerce.EcommerceApplication     : Started EcommerceApplication in 6.041 seconds (process running for 6.735)
+2023-09-14T10:47:53.530+07:00  INFO 32272 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-09-14T10:48:25.658+07:00  INFO 32272 --- [task-1] c.t.f.E.audit_log.SecurityAuditListener  : User admin@gmail.com logged in successfully.
+2023-09-14T10:48:25.785+07:00  INFO 32272 --- [task-2] c.t.f.E.audit_log.SecurityAuditListener  : User admin@gmail.com logged in successfully.
+2023-09-14T10:48:26.098+07:00  INFO 32272 --- [http-nio-8080-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 301 ms
+2023-09-14T10:50:01.304+07:00  INFO 32272 --- [task-3] c.t.f.E.audit_log.SecurityAuditListener  : User admin@gmail.com logged in successfully.
+2023-09-14T10:50:49.921+07:00  INFO 32272 --- [task-4] c.t.f.E.audit_log.SecurityAuditListener  : User admin@gmail.com logged in successfully.
+2023-09-14T10:51:08.711+07:00  INFO 32272 --- [task-5] c.t.f.E.audit_log.SecurityAuditListener  : User admin@gmail.com logged in successfully.
+2023-09-14T10:51:19.932+07:00  INFO 32272 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-09-14T10:51:19.939+07:00  INFO 32272 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
