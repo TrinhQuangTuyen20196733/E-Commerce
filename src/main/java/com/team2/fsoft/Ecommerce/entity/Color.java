@@ -19,5 +19,4 @@ public class Color {
 
     @NotBlank
     private  String name;
-
 }
