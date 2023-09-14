@@ -1,39 +1,45 @@
 package com.team2.fsoft.Ecommerce.service.impl;
 
+import com.team2.fsoft.Ecommerce.dto.ShopDTO;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
 import com.team2.fsoft.Ecommerce.entity.Shop;
+import com.team2.fsoft.Ecommerce.entity.User;
 import com.team2.fsoft.Ecommerce.mapper.impl.ShopMapper;
 import com.team2.fsoft.Ecommerce.repository.ShopRepository;
 import com.team2.fsoft.Ecommerce.repository.UserRepository;
 import com.team2.fsoft.Ecommerce.security.UserDetail;
 import com.team2.fsoft.Ecommerce.service.ShopService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ShopServiceImpl implements ShopService {
-    @Autowired
-    ShopRepository shopRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    ShopMapper shopMapper;
+    final ShopRepository shopRepository;
+    final UserRepository userRepository;
+    final ShopMapper shopMapper;
+
+    public ShopServiceImpl(ShopRepository shopRepository, UserRepository userRepository, ShopMapper shopMapper) {
+        this.shopRepository = shopRepository;
+        this.userRepository = userRepository;
+        this.shopMapper = shopMapper;
+    }
+
     @Override
-    public MessagesResponse save(Shop shop) {
+    public MessagesResponse save(ShopDTO shopDTO) {
         MessagesResponse ms = new MessagesResponse();
         try {
-            var authentication =  SecurityContextHolder.getContext().getAuthentication();
-            var user = (UserDetail)authentication.getPrincipal();
-            var userId = user.getId();
+            Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+            String email = authentication.getName();
 
-            var userAccount = userRepository.findById(userId).get();
+            User userAccount = userRepository.findByEmail(email).get();
+            Shop shop = shopMapper.toEntity(shopDTO);
             shop.setUser(userAccount);
             shopRepository.save(shop);
         }
         catch (Exception e) {
             ms.code=400;
-            ms.message="Cập nhật thông tin shop không thành công";
+            ms.message="Shop Action Failed";
         }
         return  ms;
     }
@@ -41,10 +47,9 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public MessagesResponse getInfo() {
         MessagesResponse ms = new MessagesResponse();
-        var authentication =  SecurityContextHolder.getContext().getAuthentication();
-        var user = (UserDetail)authentication.getPrincipal();
-        var userId = user.getId();
-        var shopOptional = shopRepository.findByUserId(userId);
+        Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        var shopOptional = shopRepository.findByUserEmail(email);
         if (shopOptional.isPresent()) {
             var shop = shopOptional.get();
             var shopRes = shopMapper.toDTO(shop);

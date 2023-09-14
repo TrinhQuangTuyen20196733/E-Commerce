@@ -16,8 +16,10 @@ import java.util.List;
 public class CartItem extends BaseEntity {
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @JoinColumn(name = "product_detail_id")
+    private ProductDetail productDetail;
+
+    private  int amount;
 
     @ManyToOne
     @JoinColumn(name = "shopping_cart_id")

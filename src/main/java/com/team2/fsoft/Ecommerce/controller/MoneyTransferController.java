@@ -1,4 +1,4 @@
-package com.team2.fsoft.Ecommerce.controller.authentcated;
+package com.team2.fsoft.Ecommerce.controller;
 
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;

@@ -27,10 +27,10 @@ public class ProductDetail extends BaseEntity {
     private Size size;
 
     @Column(name = "origin_price",precision = 8,scale = 2)
-    private BigDecimal originPrice;
+    private int originPrice;
 
     @Column(name = "price",precision = 8,scale = 2)
-    private BigDecimal  price;
+    private int  price;
 
     @Column(name = "sold_quantity")
     private int soldQuantity;

@@ -8,6 +8,6 @@ public interface WalletService {
 
    public MessagesResponse Withdraw(int money);
 
-   public  MessagesResponse getBalance();
+   public  int getBalance();
    public  MessagesResponse PlusToUser(int money, long userId);
 }

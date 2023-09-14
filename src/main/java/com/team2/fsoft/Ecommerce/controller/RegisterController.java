@@ -1,4 +1,4 @@
-package com.team2.fsoft.Ecommerce.controller.public_api;
+package com.team2.fsoft.Ecommerce.controller;
 
 import com.team2.fsoft.Ecommerce.constant.ExceptionMessage;
 import com.team2.fsoft.Ecommerce.dto.request.ConfirmOTP;

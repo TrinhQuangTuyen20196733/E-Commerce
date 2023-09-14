@@ -5,11 +5,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "ship_fee")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ShipFee {
     @Id
     private String code;
@@ -17,6 +23,6 @@ public class ShipFee {
     private String name;
 
     @Column(name = "fee", precision = 8, scale = 2)
-    private BigDecimal fee;
+    private int fee;
 
 }

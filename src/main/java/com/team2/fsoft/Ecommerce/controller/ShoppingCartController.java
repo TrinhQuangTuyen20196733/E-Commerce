@@ -1,4 +1,4 @@
-package com.team2.fsoft.Ecommerce.controller.public_api;
+package com.team2.fsoft.Ecommerce.controller;
 
 import com.team2.fsoft.Ecommerce.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/shopping_cart")
 public class ShoppingCartController {
-    @Autowired
-    ShoppingCartService shoppingCartService;
+    final ShoppingCartService shoppingCartService;
+
+    public ShoppingCartController(ShoppingCartService shoppingCartService) {
+        this.shoppingCartService = shoppingCartService;
+    }
+
     @GetMapping("/count")
     public  int getCount() {
         return  shoppingCartService.getCount();

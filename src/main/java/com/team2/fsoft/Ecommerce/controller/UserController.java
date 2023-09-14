@@ -1,4 +1,4 @@
-package com.team2.fsoft.Ecommerce.controller.user;
+package com.team2.fsoft.Ecommerce.controller;
 
 
 import com.team2.fsoft.Ecommerce.dto.UserDTO;
