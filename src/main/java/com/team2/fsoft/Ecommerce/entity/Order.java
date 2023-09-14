@@ -31,4 +31,8 @@ public class Order extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "order")
     private List<CartItem> cartItems;
+
+    @ManyToOne
+    @JoinColumn(name = "ship_fee_id")
+    private ShipFee shipFee;
 }

@@ -18,11 +18,15 @@ public class ShoppingCart extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Transient
-    private   int count=0;
+    private   int count;
 
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "shoppingCart")
     private List<CartItem> cartItemList;
+
+    public ShoppingCart(User user) {
+        this.user=user;
+        count=0;
+    }
 
 }

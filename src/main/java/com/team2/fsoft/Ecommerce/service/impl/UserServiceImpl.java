@@ -6,10 +6,14 @@ import com.team2.fsoft.Ecommerce.dto.request.ChangePasswordRequest;
 import com.team2.fsoft.Ecommerce.dto.request.RegisterReq;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
 import com.team2.fsoft.Ecommerce.dto.response.UserRes;
+import com.team2.fsoft.Ecommerce.entity.ShoppingCart;
 import com.team2.fsoft.Ecommerce.entity.User;
+import com.team2.fsoft.Ecommerce.entity.Wallet;
 import com.team2.fsoft.Ecommerce.mapper.impl.UserMapper;
 import com.team2.fsoft.Ecommerce.mapper.impl.UserResMapper;
+import com.team2.fsoft.Ecommerce.repository.ShoppingCartRepository;
 import com.team2.fsoft.Ecommerce.repository.UserRepository;
+import com.team2.fsoft.Ecommerce.repository.WalletRepository;
 import com.team2.fsoft.Ecommerce.security.UserDetail;
 import com.team2.fsoft.Ecommerce.service.UserService;
 import jakarta.persistence.EntityManager;
@@ -34,16 +38,27 @@ public class UserServiceImpl implements UserService {
 
     private final UserResMapper userResMapper;
 
+    private final WalletRepository walletRepository;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper,UserResMapper userResMapper) {
+    private final ShoppingCartRepository shoppingCartRepository;
+
+
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, UserResMapper userResMapper, WalletRepository walletRepository, ShoppingCartRepository shoppingCartRepository) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.userResMapper =userResMapper;
+        this.walletRepository = walletRepository;
+        this.shoppingCartRepository = shoppingCartRepository;
     }
 
     @Override
     public User create(RegisterReq registerReq) {
-        return userRepository.save(userMapper.toEntity(registerReq));
+        User user= userRepository.save(userMapper.toEntity(registerReq));
+        Wallet wallet = new Wallet(user);
+        walletRepository.save(wallet);
+        ShoppingCart shoppingCart = new ShoppingCart(user);
+        shoppingCartRepository.save(shoppingCart);
+        return user;
     }
 
     @Override

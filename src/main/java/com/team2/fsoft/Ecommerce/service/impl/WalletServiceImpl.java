@@ -113,19 +113,14 @@ return ms;
     }
 
     @Override
-    public MessagesResponse getBalance() {
-        MessagesResponse ms = new MessagesResponse();
+    public int getBalance() {
         Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Wallet userWallet = walletRepository.findByUserEmail(email).get();
-        if (userWallet != null) {
-            ms.code =200;
-            ms.data = userWallet.getMoney();
-        } else  {
-            ms.code=500;
-            ms.message="Internal Server Error!";
+        if (userWallet == null) {
+            throw  new RuntimeException("Wallet is not found!");
         }
-        return  ms;
+        return userWallet.getMoney();
     }
 
     @Override

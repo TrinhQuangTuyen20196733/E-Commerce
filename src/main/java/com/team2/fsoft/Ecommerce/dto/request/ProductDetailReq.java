@@ -7,11 +7,18 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ProductDetailRequest {
-    private String color;
-    private String size;
+@NoArgsConstructor
+public class ProductDetailReq {
+    public String color;
+
+    public String size;
+
     private BigDecimal originPrice;
+
     private BigDecimal price;
+
+    private int soldQuantity = 0;
+
+    private int inStock = 0;
 }

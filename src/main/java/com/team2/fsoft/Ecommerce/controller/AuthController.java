@@ -1,4 +1,4 @@
-package com.team2.fsoft.Ecommerce.controller.public_api;
+package com.team2.fsoft.Ecommerce.controller;
 
 import com.team2.fsoft.Ecommerce.constant.ExceptionMessage;
 import com.team2.fsoft.Ecommerce.dto.request.LoginRequest;
@@ -9,7 +9,6 @@ import com.team2.fsoft.Ecommerce.security.JWTService;
 import com.team2.fsoft.Ecommerce.security.UserDetail;
 import com.team2.fsoft.Ecommerce.security.UserDetailService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,7 +27,7 @@ public class AuthController {
 
     private JWTService jwtService;
 
-    public AuthController(AuthenticationManager authenticationManager,JWTService jwtService,UserDetailService userDetailService) {
+    public AuthController(AuthenticationManager authenticationManager, JWTService jwtService, UserDetailService userDetailService) {
         this.authenticationManager = authenticationManager;
         this.jwtService=jwtService;
         this.userDetailService=userDetailService;

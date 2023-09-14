@@ -1,4 +1,4 @@
-package com.team2.fsoft.Ecommerce.controller.authentcated;
+package com.team2.fsoft.Ecommerce.controller;
 
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
 import com.team2.fsoft.Ecommerce.service.WalletService;
@@ -25,7 +25,7 @@ public class WalletController {
     }
 
     @GetMapping("/balance")
-    public MessagesResponse GetBalance() {
+    public int GetBalance() {
         return walletService.getBalance();
     }
 }
