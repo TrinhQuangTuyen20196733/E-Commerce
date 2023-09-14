@@ -22,13 +22,12 @@ public class UserResMapper implements Mapper<User, UserRes> {
     }
     @Override
     public User toEntity(UserRes dto) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String password = passwordEncoder.encode(dto.getPassword());
+
         Role role = roleRepository.findByCode(dto.getRole()).orElse(null);
         ModelMapper modelMapper = new ModelMapper();
         TypeMap<UserRes,User> typeMap =  modelMapper.createTypeMap(UserRes.class,User.class);
         typeMap.addMappings(mapping->mapping.map(src->role,User::setRole));
-        typeMap.addMappings(mapping->mapping.map(src->password,User::setPassword));
+
         return modelMapper.map(dto,User.class);
 
     }

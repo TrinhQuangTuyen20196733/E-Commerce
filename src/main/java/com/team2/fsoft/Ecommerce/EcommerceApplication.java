@@ -1,5 +1,6 @@
 package com.team2.fsoft.Ecommerce;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -12,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
+@EnableEncryptableProperties
 @OpenAPIDefinition(
 		info = @Info(
 				title = "VN GroupBy API",
