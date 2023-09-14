@@ -24,9 +24,6 @@ public class UserDetail implements UserDetails {
         return  authorityList;
     }
 
-    public Long getId(){
-        return user.getId();
-    }
 
     @Override
     public String getPassword() {
@@ -61,4 +58,5 @@ public class UserDetail implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

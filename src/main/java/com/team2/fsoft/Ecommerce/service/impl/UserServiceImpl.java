@@ -1,7 +1,11 @@
 package com.team2.fsoft.Ecommerce.service.impl;
 
 import com.team2.fsoft.Ecommerce.dto.UserDTO;
+import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
+import com.team2.fsoft.Ecommerce.dto.request.ChangePasswordRequest;
 import com.team2.fsoft.Ecommerce.dto.request.RegisterReq;
+import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
+import com.team2.fsoft.Ecommerce.dto.response.UserRes;
 import com.team2.fsoft.Ecommerce.entity.User;
 import com.team2.fsoft.Ecommerce.mapper.impl.UserMapper;
 import com.team2.fsoft.Ecommerce.mapper.impl.UserResMapper;
@@ -13,6 +17,8 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -121,7 +127,7 @@ public class UserServiceImpl implements UserService {
 
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var user = (UserDetail) authentication.getPrincipal();
-        Long userId = user.getId();
+        long userId = user.getId();
 
         var userAccountOptional = userRepository.findById(userId);
         if (userAccountOptional.isPresent()) {
@@ -136,6 +142,5 @@ public class UserServiceImpl implements UserService {
             }
         }
         return  ms;
-
     }
 }
