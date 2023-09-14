@@ -13,10 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ProductDetail extends BaseEntity  {
-
-
-
+public class ProductDetail extends BaseEntity {
     @ManyToOne
     @JoinColumn(name="product_id")
     private Product product;

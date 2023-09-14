@@ -15,12 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 public class CartItem extends BaseEntity {
 
-    @Min(0)
-    private int amount;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "user_id" )
-    private User user;
+    @JoinColumn(name = "shopping_cart_id")
+    private ShoppingCart shoppingCart;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
