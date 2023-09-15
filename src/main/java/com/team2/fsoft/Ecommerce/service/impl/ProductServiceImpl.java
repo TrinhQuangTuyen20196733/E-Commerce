@@ -1,42 +1,30 @@
 package com.team2.fsoft.Ecommerce.service.impl;
 
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
-import com.team2.fsoft.Ecommerce.dto.request.ProductReq;
+import com.team2.fsoft.Ecommerce.dto.request.ProductRequest;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
-import com.team2.fsoft.Ecommerce.dto.response.ProductRes;
-import com.team2.fsoft.Ecommerce.entity.Category;
 import com.team2.fsoft.Ecommerce.entity.Product;
-import com.team2.fsoft.Ecommerce.entity.ProductDetail;
-import com.team2.fsoft.Ecommerce.mapper.impl.ProductDetailMapper;
-import com.team2.fsoft.Ecommerce.repository.*;
+import com.team2.fsoft.Ecommerce.mapper.impl.ProductMapper;
+import com.team2.fsoft.Ecommerce.repository.CustomProductRepository;
+import com.team2.fsoft.Ecommerce.repository.ProductRepository;
+import com.team2.fsoft.Ecommerce.repository.ShopRepository;
+import com.team2.fsoft.Ecommerce.security.UserDetail;
 import com.team2.fsoft.Ecommerce.service.ProductService;
-import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    final ProductDetailMapper productDetailMapper;
-    final ShopRepository shopRepository;
+    @Autowired
+    ProductMapper productMapper;
+    @Autowired
+    ShopRepository shopRepository;
 
-    final ProductRepository productRepository;
-    final CustomProductRepository customProductRepository;
-
-    final CategoryRepository categoryRepository;
-
-    final ProductDetailRepository productDetailRepository;
-
-    public ProductServiceImpl(ProductDetailMapper productDetailMapper, ShopRepository shopRepository, ProductRepository productRepository, CustomProductRepository customProductRepository,CategoryRepository categoryRepository,ProductDetailRepository productDetailRepository) {
-        this.productDetailMapper = productDetailMapper;
-        this.shopRepository = shopRepository;
-        this.productRepository = productRepository;
-        this.customProductRepository = customProductRepository;
-        this.categoryRepository=categoryRepository;
-        this.productDetailRepository=productDetailRepository;
-    }
+    @Autowired
+    ProductRepository productRepository;
+    @Autowired
+    CustomProductRepository customProductRepository;
 
     @Override
     @Transactional
@@ -71,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
 
         try {
             var product = customProductRepository.getByFilter(apiParameter);
-//            ms.data = pr.toDTOList(product);
+            ms.data = productMapper.toDTOList(product);
         } catch (Exception e) {
             ms.code = 404;
             ms.message = "Item Not Found!";
@@ -107,5 +95,51 @@ public class ProductServiceImpl implements ProductService {
             ms.message = "Item Not Found!";
         }
         return  ms;
+    }
+
+    @Override
+    public List<ProductDetailResponse> getLists(ApiParameter apiParameter) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProductDetail> criteriaQuery = criteriaBuilder.createQuery(ProductDetail.class);
+        Root<ProductDetail> root = criteriaQuery.from(ProductDetail.class);
+        List<Predicate> predicates = new ArrayList<>();
+
+        // Filter by text (if provided)
+        String searchText = "%" + apiParameter.filter.text + "%";
+        Predicate nameLike = criteriaBuilder.like(root.get("name"), searchText);
+        Predicate colorLike = criteriaBuilder.like(root.get("color"), searchText);
+        Predicate sizeLike = criteriaBuilder.like(root.get("size"), searchText);
+        Predicate priceLike = criteriaBuilder.equal(root.get("price"), apiParameter.filter.text);
+        predicates.add(criteriaBuilder.or(nameLike, colorLike, sizeLike, priceLike));
+
+        // Filter by created date (if provided)
+        if (apiParameter.filter != null && apiParameter.filter.created != null) {
+            predicates.add(criteriaBuilder.equal(root.get("created"), apiParameter.filter.created));
+        }
+
+
+        // Filter by author (if provided)
+        if (apiParameter.filter != null && apiParameter.filter.author != null && !apiParameter.filter.author.isEmpty()) {
+            predicates.add(criteriaBuilder.equal(root.get("author"), apiParameter.filter.author));
+        }
+        // Filter by descending and orderBy (if provided)
+        if (apiParameter.filter != null && apiParameter.filter.orderBy!=null) {
+            if (apiParameter.filter.ascending) {
+                criteriaQuery.orderBy(criteriaBuilder.asc(root.get(apiParameter.filter.orderBy)));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.desc(root.get(apiParameter.filter.orderBy)));
+            }
+        }
+
+        if (!predicates.isEmpty()) {
+            criteriaQuery.where(predicates.toArray(new Predicate[0]));
+        }
+
+        List<ProductDetail> results = entityManager.createQuery(criteriaQuery)
+                .setFirstResult((apiParameter.page - 1) * apiParameter.limit) // Offset
+                .setMaxResults(apiParameter.limit) // Limit
+                .getResultList();
+
+        return productDetailResponseMapper.toDTOList(results);
     }
 }

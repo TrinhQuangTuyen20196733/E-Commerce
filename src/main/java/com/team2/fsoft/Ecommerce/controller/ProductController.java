@@ -35,4 +35,9 @@ public class ProductController {
     public  MessagesResponse Delete(@PathVariable @Positive long id) {
         return  productService.deleteById(id);
     }
+
+    @PostMapping("/api/search")
+    public List<ProductDetailResponse> GetLists(@RequestBody ApiParameter apiParameter){
+        return  productService.getLists(apiParameter);
+    }
 }
