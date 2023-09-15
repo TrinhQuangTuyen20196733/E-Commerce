@@ -12,8 +12,7 @@ public class OrderStatus {
     public  static int SHIPPING = 500;
 
     public  static  int DONE = 600;
+    public static  int SEND_BACK = 700;
 
-    public  static  int REJECT = 700;
-
-    public static  int SEND_BACK = 800;
+    public  static  int REJECT = 800;
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDetailRequest {
+public class ProductRequest {
     private String color;
     private String size;
     private int originPrice;

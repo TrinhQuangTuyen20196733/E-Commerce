@@ -28,7 +28,7 @@ public class OrderController {
            }
         } catch (Exception e) {
             ms.code = 500;
-            ms.message = "Order không thành công!Vui lòng thử lại!";
+            ms.message = e.getMessage();
         }
         return ms;
     }

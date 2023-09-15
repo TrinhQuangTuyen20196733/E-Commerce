@@ -22,10 +22,9 @@ public class Receipt  {
     @JoinColumn(name = "id")
     private  Order order;
 
-    private  float vat;
+    private  float vat =0;
 
-    @Column(precision = 8,scale = 2)
-    private BigDecimal payment;
+    private int payment;
 
 
 }

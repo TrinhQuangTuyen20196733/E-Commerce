@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.team2.fsoft</groupId>
 	<artifactId>Ecommerce</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>Ecommerce</name>
 	<description>Mock 2 Project</description>
 	<properties>

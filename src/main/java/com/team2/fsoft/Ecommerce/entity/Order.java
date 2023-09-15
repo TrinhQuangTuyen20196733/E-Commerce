@@ -29,7 +29,7 @@ public class Order extends BaseEntity {
     @Column(name = "receive_time")
     private LocalDate receiveTime;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "order")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "order",cascade = CascadeType.PERSIST)
     private List<CartItem> cartItems;
 
     @ManyToOne

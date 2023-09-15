@@ -96,9 +96,9 @@ return ms;
                     moneyTransfer.setFromUser(userAccount);
                     moneyTransferService.save(moneyTransfer);
                 }
-                catch (Exception e) {
+                catch (Exception ex) {
                     ms.code = 500;
-                    ms.message="Rút tiền không thành công. Vui lòng thử lại!";
+                    throw new RuntimeException(ex.getMessage());
                 }
             }
             else {

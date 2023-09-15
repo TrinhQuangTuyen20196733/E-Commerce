@@ -26,10 +26,8 @@ public class ProductDetail extends BaseEntity {
     @JoinColumn(name="size_id")
     private Size size;
 
-    @Column(name = "origin_price",precision = 8,scale = 2)
     private int originPrice;
 
-    @Column(name = "price",precision = 8,scale = 2)
     private int  price;
 
     @Column(name = "sold_quantity")

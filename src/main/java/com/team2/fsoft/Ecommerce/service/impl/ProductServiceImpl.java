@@ -1,30 +1,66 @@
 package com.team2.fsoft.Ecommerce.service.impl;
 
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
-import com.team2.fsoft.Ecommerce.dto.request.ProductRequest;
+import com.team2.fsoft.Ecommerce.dto.request.ProductReq;
+import com.team2.fsoft.Ecommerce.dto.request.ProductReq;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
+import com.team2.fsoft.Ecommerce.dto.response.ProductDetailResponse;
+import com.team2.fsoft.Ecommerce.dto.response.ProductRes;
+import com.team2.fsoft.Ecommerce.entity.Category;
 import com.team2.fsoft.Ecommerce.entity.Product;
-import com.team2.fsoft.Ecommerce.mapper.impl.ProductMapper;
+import com.team2.fsoft.Ecommerce.entity.ProductDetail;
+import com.team2.fsoft.Ecommerce.mapper.impl.ProductDetailResponseMapper;
 import com.team2.fsoft.Ecommerce.repository.CustomProductRepository;
 import com.team2.fsoft.Ecommerce.repository.ProductRepository;
 import com.team2.fsoft.Ecommerce.repository.ShopRepository;
-import com.team2.fsoft.Ecommerce.security.UserDetail;
+
+import com.team2.fsoft.Ecommerce.mapper.impl.ProductDetailMapper;
+import com.team2.fsoft.Ecommerce.repository.*;
 import com.team2.fsoft.Ecommerce.service.ProductService;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    ProductMapper productMapper;
-    @Autowired
-    ShopRepository shopRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
+    final ProductDetailMapper productDetailMapper;
+    final ShopRepository shopRepository;
+
+    final ProductRepository productRepository;
+
+
+    final CategoryRepository categoryRepository;
+
+    final ProductDetailRepository productDetailRepository;
 
     @Autowired
-    ProductRepository productRepository;
-    @Autowired
-    CustomProductRepository customProductRepository;
+    private ProductDetailResponseMapper productDetailResponseMapper;
+
+    public ProductServiceImpl(ProductDetailMapper productDetailMapper, ShopRepository shopRepository, ProductRepository productRepository,CategoryRepository categoryRepository,ProductDetailRepository productDetailRepository) {
+        this.productDetailMapper = productDetailMapper;
+        this.shopRepository = shopRepository;
+        this.productRepository = productRepository;
+        this.categoryRepository=categoryRepository;
+        this.productDetailRepository=productDetailRepository;
+    }
 
     @Override
     @Transactional
@@ -53,19 +89,8 @@ public class ProductServiceImpl implements ProductService {
         return ms;
     }
 
-    @Override
-    public MessagesResponse getItems(ApiParameter apiParameter) {
-        MessagesResponse ms = new MessagesResponse();
 
-        try {
-            var product = customProductRepository.getByFilter(apiParameter);
-            ms.data = productMapper.toDTOList(product);
-        } catch (Exception e) {
-            ms.code = 404;
-            ms.message = "Item Not Found!";
-        }
-        return ms;
-    }
+
 
     @Override
     public MessagesResponse deleteById(long id) {

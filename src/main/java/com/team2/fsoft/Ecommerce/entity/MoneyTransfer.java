@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "money_transfer")
 public class MoneyTransfer extends  BaseEntity{
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "from_user_id")
     private User fromUser;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "to_user_id")
     private User toUser;
 

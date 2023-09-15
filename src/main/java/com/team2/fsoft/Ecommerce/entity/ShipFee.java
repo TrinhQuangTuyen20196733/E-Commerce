@@ -22,7 +22,6 @@ public class ShipFee {
     @NotBlank
     private String name;
 
-    @Column(name = "fee", precision = 8, scale = 2)
     private int fee;
 
 }
