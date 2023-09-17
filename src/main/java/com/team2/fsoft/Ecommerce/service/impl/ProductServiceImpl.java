@@ -1,5 +1,6 @@
 package com.team2.fsoft.Ecommerce.service.impl;
 
+import com.team2.fsoft.Ecommerce.dto.PageDTO;
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
 import com.team2.fsoft.Ecommerce.dto.request.ProductReq;
 import com.team2.fsoft.Ecommerce.dto.request.ProductReq;
@@ -9,6 +10,7 @@ import com.team2.fsoft.Ecommerce.dto.response.ProductRes;
 import com.team2.fsoft.Ecommerce.entity.Category;
 import com.team2.fsoft.Ecommerce.entity.Product;
 import com.team2.fsoft.Ecommerce.entity.ProductDetail;
+import com.team2.fsoft.Ecommerce.entity.User;
 import com.team2.fsoft.Ecommerce.mapper.impl.ProductDetailResponseMapper;
 import com.team2.fsoft.Ecommerce.repository.CustomProductRepository;
 import com.team2.fsoft.Ecommerce.repository.ProductRepository;
@@ -20,6 +22,7 @@ import com.team2.fsoft.Ecommerce.service.ProductService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -123,7 +126,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDetailResponse> getLists(ApiParameter apiParameter) {
+    public PageDTO<ProductDetailResponse> getLists(ApiParameter apiParameter) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<ProductDetail> criteriaQuery = criteriaBuilder.createQuery(ProductDetail.class);
         Root<ProductDetail> root = criteriaQuery.from(ProductDetail.class);
@@ -159,12 +162,14 @@ public class ProductServiceImpl implements ProductService {
         if (!predicates.isEmpty()) {
             criteriaQuery.where(predicates.toArray(new Predicate[0]));
         }
-
-        List<ProductDetail> results = entityManager.createQuery(criteriaQuery)
+        TypedQuery<ProductDetail> query = entityManager.createQuery(criteriaQuery);
+        int totalRows = query.getResultList().size();
+        List<ProductDetail> results = query
                 .setFirstResult((apiParameter.page - 1) * apiParameter.limit) // Offset
                 .setMaxResults(apiParameter.limit) // Limit
                 .getResultList();
+        PageDTO<ProductDetailResponse> responsePageDTO = new PageDTO<>(productDetailResponseMapper.toDTOList(results), apiParameter.page, totalRows);
 
-        return productDetailResponseMapper.toDTOList(results);
+        return responsePageDTO;
     }
 }

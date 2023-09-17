@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,12 +41,16 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
      String jwt = getJwtFromRequest(request);
      if (StringUtils.hasText(jwt) && jwtService.isValidToken(jwt)){
          String email = jwtService.getEmailFromJWT(jwt);
+
+         MDC.put("IP",request.getRemoteAddr());
+         MDC.put("userName",email);
          String role = jwtService.getRoleFromToken(jwt);
 
          Set<GrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(role));
          UsernamePasswordAuthenticationToken authenticationToken =
                  new UsernamePasswordAuthenticationToken(email, null, authorities);
          SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
      }
  } catch (Exception ex) {
      log.error("Failed to set user authentication",ex);

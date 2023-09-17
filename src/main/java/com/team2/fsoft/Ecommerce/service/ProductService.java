@@ -1,5 +1,6 @@
 package com.team2.fsoft.Ecommerce.service;
 
+import com.team2.fsoft.Ecommerce.dto.PageDTO;
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
 import com.team2.fsoft.Ecommerce.dto.request.ProductReq;
 import com.team2.fsoft.Ecommerce.dto.request.ProductRequest;
@@ -17,5 +18,5 @@ public interface ProductService {
 
     MessagesResponse getById(long id);
 
-    List<ProductDetailResponse> getLists(ApiParameter apiParameter);
+    PageDTO<ProductDetailResponse> getLists(ApiParameter apiParameter);
 }

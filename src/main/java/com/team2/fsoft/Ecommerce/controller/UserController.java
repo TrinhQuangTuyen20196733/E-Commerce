@@ -1,6 +1,7 @@
 package com.team2.fsoft.Ecommerce.controller;
 
 
+import com.team2.fsoft.Ecommerce.dto.PageDTO;
 import com.team2.fsoft.Ecommerce.dto.UserDTO;
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
 import com.team2.fsoft.Ecommerce.dto.request.ChangePasswordRequest;
@@ -40,7 +41,7 @@ public class UserController {
         return userService.changePassword(changePasswordRequest);
     }
     @PostMapping("/api/search")
-    public List<UserRes> GetLists(@RequestBody ApiParameter apiParameter){
+    public PageDTO<UserRes> GetLists(@RequestBody ApiParameter apiParameter){
         return  userService.getLists(apiParameter);
     }
 }

@@ -1,5 +1,6 @@
 package com.team2.fsoft.Ecommerce.controller;
 
+import com.team2.fsoft.Ecommerce.dto.PageDTO;
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
 import com.team2.fsoft.Ecommerce.dto.request.ProductReq;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
@@ -37,7 +38,7 @@ public class ProductController {
     }
 
     @PostMapping("/api/search")
-    public List<ProductDetailResponse> GetLists(@RequestBody ApiParameter apiParameter){
+    public PageDTO<ProductDetailResponse> GetLists(@RequestBody ApiParameter apiParameter){
         return  productService.getLists(apiParameter);
     }
 }

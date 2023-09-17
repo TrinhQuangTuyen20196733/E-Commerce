@@ -1,5 +1,6 @@
 package com.team2.fsoft.Ecommerce.service.impl;
 
+import com.team2.fsoft.Ecommerce.dto.PageDTO;
 import com.team2.fsoft.Ecommerce.dto.UserDTO;
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
 import com.team2.fsoft.Ecommerce.dto.request.ChangePasswordRequest;
@@ -18,9 +19,12 @@ import com.team2.fsoft.Ecommerce.security.UserDetail;
 import com.team2.fsoft.Ecommerce.service.UserService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -83,7 +87,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserRes> getLists(ApiParameter apiParameter) {
+    public PageDTO<UserRes> getLists(ApiParameter apiParameter) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> root = criteriaQuery.from(User.class);
@@ -117,12 +121,15 @@ public class UserServiceImpl implements UserService {
 
             criteriaQuery.where(predicates.toArray(new Predicate[0]));
         }
-        List<User> results = entityManager.createQuery(criteriaQuery)
+        TypedQuery<User> query = entityManager.createQuery(criteriaQuery);
+        int totalRows = query.getResultList().size();
+        List<User> results = query
                 .setFirstResult((apiParameter.page - 1) * apiParameter.limit) // Offset
                 .setMaxResults(apiParameter.limit) // Limit
                 .getResultList();
+        PageDTO<UserRes> userResPageDTO = new PageDTO<>(userResMapper.toDTOList(results),apiParameter.page,totalRows);
 
-            return userResMapper.toDTOList(results);
+            return userResPageDTO;
         }
 
     @Override

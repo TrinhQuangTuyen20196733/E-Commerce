@@ -1,5 +1,6 @@
 package com.team2.fsoft.Ecommerce.service;
 
+import com.team2.fsoft.Ecommerce.dto.PageDTO;
 import com.team2.fsoft.Ecommerce.dto.UserDTO;
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
 import com.team2.fsoft.Ecommerce.dto.request.ChangePasswordRequest;
@@ -23,7 +24,7 @@ public interface UserService {
     User findByEmail(String email);
 
 
-    List<UserRes> getLists(ApiParameter apiParameter);
+    PageDTO<UserRes> getLists(ApiParameter apiParameter);
 
     User findById(long Id);
 }
