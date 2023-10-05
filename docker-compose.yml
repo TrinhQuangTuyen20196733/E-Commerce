@@ -1,4 +1,4 @@
-version: "3.3"
+
 services:
   ecommerce:
     container_name: ecommerce-app
@@ -6,14 +6,19 @@ services:
     restart: always
     build: .
     ports:
-      - 8088:8088
+      - 8080:8080
     depends_on:
       - ecommercedb
     environment:
-
+      MINIO.URL: http://minio:9000
       SPRING_DATASOURCE_URL: jdbc:mysql://ecommercedb:3306/ecommerce?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:9092
+      LOGSTASH_DESTINATION: logstash:5000
+    networks:
+      - commerce
 
 
   ecommercedb:
@@ -27,4 +32,100 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./data:/var/lib/mysql
+    networks:
+      - commerce
+
+  minio:
+    container_name: minio-app
+    image: quay.io/minio/minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      - MINIO_ROOT_USER=root
+      - MINIO_ROOT_PASSWORD=Tuyen18072001
+    volumes:
+      - ./minio:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - commerce
+
+  redis:
+    container_name: redis-app
+    image: redis
+    ports:
+      - 6379:6379
+    networks:
+      - commerce
+  zookeeper:
+    image: zookeeper
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+    networks:
+      - commerce
+  kafka:
+    image: bitnami/kafka
+    container_name: kafka
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    networks:
+      - commerce
+    depends_on:
+      - zookeeper
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.3.3
+    container_name: elasticsearch_springboot
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.type=single-node"
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - commerce
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.3.3
+    container_name: kibana_springboot
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
+    depends_on:
+      - elasticsearch
+    networks:
+      - commerce
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.3.3
+    container_name: logstash_springboot
+    volumes:
+      - ../ELK/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ../ELK/logstash/pipeline:/usr/share/logstash/pipeline:ro
+    ports:
+      - "5044:5044"
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - commerce
+    depends_on:
+      - elasticsearch
+networks:
+  commerce:
+    driver: "bridge"
+volumes:
+  elasticsearch_data:
+    driver: local
 

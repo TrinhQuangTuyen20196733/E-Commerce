@@ -23,7 +23,7 @@ public class UploadFileServiceImpl implements UploadService {
     private MinioClient minioClient;
     private ApplicationEventPublisher publisher;
 
-    @Value("${minio.buckek.name}")
+    @Value("${minio.bucket.name}")
     String defaultBucketName;
 
     @Value("${minio.default.folder}")

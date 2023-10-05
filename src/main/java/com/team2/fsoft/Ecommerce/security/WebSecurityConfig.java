@@ -63,13 +63,14 @@ public class WebSecurityConfig {
                                 .hasAnyAuthority("SHIPPER", "ADMIN")
                                 .requestMatchers("/wallet/**","/moneyTransfer/**")
                                 .hasAnyAuthority("SHIPPER", "ADMIN","USER","SHOPPER")
-                                .requestMatchers("/auth/**", "/products/**", "/swagger-ui/**", "/register/**","/product_details/**","/orders/**")
+                                .requestMatchers("/auth/**", "/products/**", "/swagger-ui/**", "/register/**","/product_details/**","/orders/**","/api/**","/test/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(Customizer.withDefaults());
+
 
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

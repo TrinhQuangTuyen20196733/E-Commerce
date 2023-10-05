@@ -28,7 +28,6 @@ public class FileProcessController {
     @PostMapping(path = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String uploadFile(@RequestPart(value = "file", required = false) MultipartFile files) throws IOException {
         return uploadService.uploadFile(files.getOriginalFilename(), files.getBytes());
-
     }
 
     @GetMapping(path = "/download")

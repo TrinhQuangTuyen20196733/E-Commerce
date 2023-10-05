@@ -3,16 +3,12 @@ package com.team2.fsoft.Ecommerce.service.impl;
 import com.team2.fsoft.Ecommerce.dto.PageDTO;
 import com.team2.fsoft.Ecommerce.dto.request.ApiParameter;
 import com.team2.fsoft.Ecommerce.dto.request.ProductReq;
-import com.team2.fsoft.Ecommerce.dto.request.ProductReq;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
 import com.team2.fsoft.Ecommerce.dto.response.ProductDetailResponse;
 import com.team2.fsoft.Ecommerce.dto.response.ProductRes;
-import com.team2.fsoft.Ecommerce.entity.Category;
 import com.team2.fsoft.Ecommerce.entity.Product;
 import com.team2.fsoft.Ecommerce.entity.ProductDetail;
-import com.team2.fsoft.Ecommerce.entity.User;
 import com.team2.fsoft.Ecommerce.mapper.impl.ProductDetailResponseMapper;
-import com.team2.fsoft.Ecommerce.repository.CustomProductRepository;
 import com.team2.fsoft.Ecommerce.repository.ProductRepository;
 import com.team2.fsoft.Ecommerce.repository.ShopRepository;
 
@@ -28,7 +24,6 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -67,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public MessagesResponse save(ProductReq productReq) {
+    public Product save(ProductReq productReq) {
         Product product = new Product();
         product.setName(product.getName());
         product.setDescription(product.getDescription());
@@ -86,10 +81,9 @@ public class ProductServiceImpl implements ProductService {
             });
 
         } else {
-            ms.code = 500;
-            ms.message = " Internal Server Error!";
+            throw new RuntimeException("Can not add product");
         }
-        return ms;
+        return product;
     }
 
 
@@ -109,20 +103,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public MessagesResponse getById(long id) {
-        MessagesResponse ms = new MessagesResponse();
+    public ProductRes getById(long id) {
+
         try {
             Product product = productRepository.findById(id).get();
-        ms.data =  product.getProductDetailList().stream().map(productDetail ->
+         return   product.getProductDetailList().stream().map(productDetail ->
               new ProductRes(product.getId(),product.getName(),product.getDescription(),productDetail.getOriginPrice(),
-                      productDetail.getPrice(),product.getCategory().getCode(),productDetail.getColor().getCode(),productDetail.getSize().getCode(),productDetail.getInStock(),productDetail.getSoldQuantity())).collect(Collectors.toList());
+                      productDetail.getPrice(),product.getCategory().getCode(),productDetail.getColor().getCode(),productDetail.getSize().getCode(),productDetail.getInStock(),productDetail.getSoldQuantity())).collect(Collectors.toList()).get(0);
 
 
         } catch (Exception ex) {
-            ms.code = 404;
-            ms.message = "Item Not Found!";
+           throw  new RuntimeException("Get Product Failed!");
         }
-        return  ms;
+
     }
 
     @Override

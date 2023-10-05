@@ -6,17 +6,19 @@ import com.team2.fsoft.Ecommerce.dto.request.ProductReq;
 import com.team2.fsoft.Ecommerce.dto.request.ProductRequest;
 import com.team2.fsoft.Ecommerce.dto.response.MessagesResponse;
 import com.team2.fsoft.Ecommerce.dto.response.ProductDetailResponse;
+import com.team2.fsoft.Ecommerce.dto.response.ProductRes;
+import com.team2.fsoft.Ecommerce.entity.Product;
 
 
 import java.util.List;
 
 public interface ProductService {
-    MessagesResponse save(ProductReq productReq) ;
+    Product save(ProductReq productReq) ;
 
 
     MessagesResponse deleteById(long id);
 
-    MessagesResponse getById(long id);
+    ProductRes getById(long id);
 
     PageDTO<ProductDetailResponse> getLists(ApiParameter apiParameter);
 }
